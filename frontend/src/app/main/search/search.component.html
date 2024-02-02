@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Recherche de jeux</h2>
+  <form [formGroup]="searchListGame" (submit)="searchGame()">
+    <label for="title">Titre</label>
+    <input type="text" id="title" placeholder="Entrez un titre" formControlName="title" class="form-control" />
+
+    <button type="submit" id="btnSearch">RECHERCHER</button>
+  </form>
+
+  <!-- Afficher le titre recherché -->
+  <div *ngIf="searchedTitle">
+    <h3>Résultats de recherche pour : {{ searchedTitle }}</h3>
+  </div>
+
+  <!-- Affichage conditionnel des résultats -->
+  <div *ngIf="results && !loading">
+    <!-- Affichage des résultats -->
+    <div class="resultSearch" *ngFor="let result of results">
+      <p>{{ result.title }}</p>
+      <p>{{ result.studio }}</p>
+      <p>{{ result.date }}</p>
+    </div>
+
+    <!-- Message "Aucun résultat trouvé" -->
+    <div *ngIf="results.length === 0">
+      Aucun résultat trouvé.
+    </div>
+  </div>
+
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading">
+    Chargement en cours...
+  </div>
+
+  <!-- Affichage des erreurs -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>
